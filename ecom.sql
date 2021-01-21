@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `mini_project` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `mini_project`;
 -- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: mini_project
@@ -199,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-16 23:57:41
+-- Dump completed on 2021-01-20 15:41:59
