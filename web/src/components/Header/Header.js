@@ -59,6 +59,9 @@ function Header() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <div className="header__links">
               <Nav className="mr-auto">
+                {/* <Nav.Link as={NavLink} to="/admin_rights">
+                  Admin{" "}
+                </Nav.Link> */}
                 <Nav.Link as={NavLink} to="/">
                   Home{" "}
                   <FontAwesomeIcon size="xs" icon={faHome}></FontAwesomeIcon>

@@ -4,6 +4,10 @@
   background: white;
   border-radius: 12px;
   margin-top: 15px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 10px;
+  filter: drop-shadow(1px 1px 1px black);
 }
 
 .productList > img {

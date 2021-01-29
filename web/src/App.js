@@ -14,6 +14,7 @@ import axios from "axios";
 import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import Order from "./components/Orders/Order";
 import OrderPlaced from "./components/Orderplaced/OrderPlaced";
+import AdminPage from "./components/AdminPage/AdminPage";
 
 function App() {
   const [{ apiKey, products, user, basket }, dispatch] = useStateValue();
@@ -78,6 +79,10 @@ function App() {
     <Router>
       <div className="app">
         <Switch>
+          <Route path="/admin_rights">
+            <Header />
+            <AdminPage />
+          </Route>
           <Route path="/user_orders">
             <Header />
             <Order />

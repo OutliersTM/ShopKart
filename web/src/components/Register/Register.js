@@ -16,32 +16,68 @@ function Register() {
   const [{ apiKey }, dispatch] = useStateValue();
   const history = useHistory();
   const alert = useAlert();
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const phoneValid = /^\d{9}$/;
+  const passwordValid = /^[A-Za-z]\w{7,14}$/;
+  const [errorBool, setErrorBool] = useState(false);
+
+  const validateForm = () => {
+    const emailTest = emailValid.test(email);
+    const phoneTest = phoneValid.test(phone);
+    const passwordTest = passwordValid.test(password);
+    if (emailTest) {
+      setEmailError("");
+    } else {
+      setEmailError("Email Badly Formated");
+    }
+    if (passwordTest) {
+      setPasswordError("");
+    } else {
+      setPasswordError("Password does not match the required format");
+    }
+    if (phoneTest) {
+      setPhoneError("");
+    } else {
+      setPhoneError("Phone Number should be 10 digits");
+    }
+    setErrorBool(emailTest && passwordTest && phoneTest);
+  };
 
   const registerUser = (e) => {
-    Axios.post(`${apiKey}/user_registration`, {
-      name: name,
-      email: email,
-      phone: phone,
-      dob: dob,
-      password: password,
-    })
-      .then((res) => {
-        console.log(res.data.sqlMessage);
-        alert.success("User Registered");
-        history.replace("/user_login");
+    validateForm();
+    if (errorBool) {
+      Axios.post(`${apiKey}/user_registration`, {
+        name: name,
+        email: email,
+        phone: phone,
+        dob: dob,
+        password: password,
       })
-      .then((err) => {
-        console.log("err", err);
-      })
-      .finally(() => {
-        setEmail("");
-        setPassword("");
-        setDob("");
-        setName("");
-        setPhone("");
-        alert.success("User Registered");
-        history.replace("/user_login");
-      });
+        .then((res) => {
+          console.log(res.data.sqlMessage);
+          alert.success("User Registered");
+          e.preventDefault();
+          history.replace("/user_login");
+        })
+        .then((err) => {
+          console.log("err", err);
+        })
+        .finally(() => {
+          setEmail("");
+          setPassword("");
+          setDob("");
+          setName("");
+          setPhone("");
+          alert.success("User Registered");
+          e.preventDefault();
+          history.replace("/user_login");
+        });
+    } else {
+      alert.error("Oops! Input badly Formatted");
+    }
   };
 
   return (
@@ -81,6 +117,7 @@ function Register() {
               <Form.Control
                 onChange={(e) => {
                   setEmail(e.target.value);
+                  validateForm();
                 }}
                 type="email"
                 placeholder="enter your email"
@@ -93,8 +130,9 @@ function Register() {
               <Form.Control
                 onChange={(e) => {
                   setPhone(e.target.value);
+                  validateForm();
                 }}
-                type="phone"
+                type="tel"
                 placeholder="enter your phone no"
                 required
               />
@@ -119,12 +157,24 @@ function Register() {
               <Form.Control
                 onChange={(e) => {
                   setPassword(e.target.value);
+                  validateForm();
                 }}
                 type="password"
                 placeholder="enter password"
                 required
               />
             </Form.Group>
+            {!errorBool ? (
+              <p className="register__errors">
+                {emailError}
+                <br></br>
+                {phoneError}
+                <br></br>
+                {passwordError}
+              </p>
+            ) : (
+              ""
+            )}
 
             <Button
               onClick={registerUser}

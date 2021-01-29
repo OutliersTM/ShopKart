@@ -15,6 +15,11 @@ a,
   background: url(../Mainpage/img/net-bg-res.jpg) center center no-repeat;
 }
 
+.register__errors {
+  color: red;
+  margin: 10px 10px 10px 10px;
+}
+
 .signup__container {
   position: absolute;
   top: 50%;
@@ -117,6 +122,6 @@ label {
 .register__button {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
   flex-grow: 1;
 }
