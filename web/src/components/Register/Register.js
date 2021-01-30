@@ -6,6 +6,8 @@ import Axios from "axios";
 import { useStateValue } from "../../StateProvider";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = useState();
@@ -20,8 +22,8 @@ function Register() {
   const [passwordError, setPasswordError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  const phoneValid = /^\d{9}$/;
-  const passwordValid = /^[A-Za-z]\w{7,14}$/;
+  const phoneValid = /^\d{10}$/;
+  const passwordValid = /^[0-9a-zA-Z]{8,15}$/;
   const [errorBool, setErrorBool] = useState(false);
 
   const validateForm = () => {
@@ -175,9 +177,11 @@ function Register() {
             ) : (
               ""
             )}
-
+            
+            <Link to="/user_login">
             <Button
               onClick={registerUser}
+              onClick={handleLogin}
               className="register__button"
               variant="info"
               type="submit"
@@ -185,6 +189,8 @@ function Register() {
             >
               Register
             </Button>
+            </Link>
+            
           </Form>
         </div>
       </div>

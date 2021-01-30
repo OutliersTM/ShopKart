@@ -5,6 +5,10 @@ import Axios from "axios";
 import { useStateValue } from "../../StateProvider";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 function Login() {
   const [email, setEmail] = useState();
@@ -67,6 +71,9 @@ function Login() {
               required
             />
           </Form.Group>
+
+
+        
           <Button
             onClick={handleLogin}
             type="submit"
@@ -75,6 +82,8 @@ function Login() {
           >
             Sign In
           </Button>
+            
+          
         </Form>
       </div>
     </div>
