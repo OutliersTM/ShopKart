@@ -6,8 +6,6 @@ import Axios from "axios";
 import { useStateValue } from "../../StateProvider";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
 
 function Register() {
   const [email, setEmail] = useState();
@@ -177,8 +175,7 @@ function Register() {
             ) : (
               ""
             )}
-            
-            <Link to="/user_login">
+
             <Button
               onClick={registerUser}
               onClick={handleLogin}
@@ -189,8 +186,6 @@ function Register() {
             >
               Register
             </Button>
-            </Link>
-            
           </Form>
         </div>
       </div>
