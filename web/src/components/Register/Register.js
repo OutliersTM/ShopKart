@@ -20,7 +20,7 @@ function Register() {
   const [passwordError, setPasswordError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  const phoneValid = /^\d{10}$/;
+  const phoneValid = /^[0-9]{10}$/;
   const passwordValid = /^[0-9a-zA-Z]{8,15}$/;
   const [errorBool, setErrorBool] = useState(false);
 
@@ -178,7 +178,6 @@ function Register() {
 
             <Button
               onClick={registerUser}
-              onClick={handleLogin}
               className="register__button"
               variant="info"
               type="submit"
