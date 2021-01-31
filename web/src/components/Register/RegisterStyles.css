@@ -17,7 +17,8 @@ a,
 
 .register__errors {
   color: red;
-  margin: 10px 10px 10px 10px;
+  margin: 0px;
+  font-size: 12px;
 }
 
 .signup__container {

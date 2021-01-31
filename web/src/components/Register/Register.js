@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import "./RegisterStyles.css";
 import { Link } from "react-router-dom";
@@ -10,8 +10,8 @@ import { useAlert } from "react-alert";
 function Register() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [dob, setDob] = useState();
-  const [name, setName] = useState();
+  const [dob, setDob] = useState(Date.now());
+  const [name, setName] = useState("");
   const [phone, setPhone] = useState();
   const [{ apiKey }, dispatch] = useStateValue();
   const history = useHistory();
@@ -24,6 +24,9 @@ function Register() {
   const passwordValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const [errorBool, setErrorBool] = useState(false);
 
+  useEffect(() => {
+    validateForm();
+  }, [phone, email, password]);
   const validateForm = () => {
     const emailTest = emailValid.test(email);
     const phoneTest = phoneValid.test(phone);
@@ -43,11 +46,18 @@ function Register() {
     } else {
       setPhoneError("Phone Number should be 10 digits");
     }
-    setErrorBool(emailTest && passwordTest && phoneTest);
+    return setErrorBool(
+      emailTest &&
+        passwordTest &&
+        phoneTest &&
+        name.length > 0 &&
+        dob.length > 0
+    );
   };
 
   const registerUser = (e) => {
     validateForm();
+    e.preventDefault();
     if (errorBool) {
       Axios.post(`${apiKey}/user_registration`, {
         name: name,
@@ -59,8 +69,6 @@ function Register() {
         .then((res) => {
           console.log(res.data.sqlMessage);
           alert.success("User Registered");
-          e.preventDefault();
-          history.replace("/user_login");
         })
         .then((err) => {
           console.log("err", err);
@@ -72,7 +80,6 @@ function Register() {
           setName("");
           setPhone("");
           alert.success("User Registered");
-          e.preventDefault();
           history.replace("/user_login");
         });
     } else {
@@ -117,7 +124,6 @@ function Register() {
               <Form.Control
                 onChange={(e) => {
                   setEmail(e.target.value);
-                  validateForm();
                 }}
                 type="email"
                 placeholder="enter your email"
@@ -130,14 +136,12 @@ function Register() {
               <Form.Control
                 onChange={(e) => {
                   setPhone(e.target.value);
-                  validateForm();
                 }}
-                type="tel"
+                type="number"
                 placeholder="enter your phone no"
                 required
               />
             </Form.Group>
-
             <Form.Group>
               <Form.Label>Select Date</Form.Label>
               <Form.Control
@@ -157,7 +161,6 @@ function Register() {
               <Form.Control
                 onChange={(e) => {
                   setPassword(e.target.value);
-                  validateForm();
                 }}
                 type="password"
                 placeholder="enter password"
