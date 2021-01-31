@@ -21,7 +21,7 @@ function Register() {
   const [phoneError, setPhoneError] = useState("");
   const emailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const phoneValid = /^[0-9]{10}$/;
-  const passwordValid = /^[0-9a-zA-Z]{8,15}$/;
+  const passwordValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
   const [errorBool, setErrorBool] = useState(false);
 
   const validateForm = () => {
@@ -163,6 +163,9 @@ function Register() {
                 placeholder="enter password"
                 required
               />
+              <p style={{ color: "black", marginLeft: 10, fontSize: 10 }}>
+                Minimum eight characters, at least one letter and one number
+              </p>
             </Form.Group>
             {!errorBool ? (
               <p className="register__errors">
