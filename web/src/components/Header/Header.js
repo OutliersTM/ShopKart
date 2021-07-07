@@ -53,7 +53,7 @@ function Header() {
       >
         <div className="container">
           <Navbar.Brand as={NavLink} to="/" className="brandName">
-            E-Commerce
+            ShopKart
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
